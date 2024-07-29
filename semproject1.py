@@ -31,44 +31,6 @@ def initialize_db():
 
 initialize_db()
 
-# Conditions that are applied during Signup
-def signup():
-    fname = signup_fname.get()
-    lname = signup_lname.get()
-    phone = signup_phone.get()
-    email = signup_email.get()
-    username = signup_username.get()
-    password = signup_password.get()
-    confirm_password = signup_confirm_password.get()
-    account_type = signup_account_type.get()
-
-    if all([fname, lname, phone, email, username, password, confirm_password]):
-        if len(password) >= 8 and password == confirm_password:
-            if password not in (fname, lname, phone, username):
-                try:
-                    with sqlite3.connect('signup.db') as conn:
-                        c = conn.cursor()
-                        # Check if username already exists
-                        c.execute("SELECT 1 FROM user WHERE signup_username = ?", (username,))
-                        if c.fetchone():
-                            messagebox.showerror("Signup Error", "Username already exists.")
-                            return
-                        # Insert new user
-                        c.execute("INSERT INTO user (signup_fname, signup_lname, signup_phone, signup_email, signup_username, signup_password) VALUES (?, ?, ?, ?, ?, ?)",
-                                (fname, lname, phone, email, username, password))
-                        conn.commit()
-                    messagebox.showinfo("Signup", f"Signup Successful for {account_type}\nUsername: {username}")
-                    show_login()
-                except sqlite3.Error as e:
-                    messagebox.showerror("Database Error", str(e))
-            else:
-                messagebox.showerror("Signup Error", "Password should not match any other criteria.")
-        else:
-            messagebox.showerror("Signup Error", "Passwords do not match or password is too short.")
-    else:
-        messagebox.showerror("Signup Error", "All fields must be filled.")
-
-
 # Conditions that are applied during reset password
 def forgetpassword():
     username = forget_fname.get()
