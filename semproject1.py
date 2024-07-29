@@ -31,36 +31,6 @@ def initialize_db():
 
 initialize_db()
 
-
-# Conditions that are applied during login
-def login():
-    account_type = login_account_type.get()
-    username = login_name.get()
-    password = login_password.get()
-
-    try:
-        with sqlite3.connect('signup.db') as conn:
-            c = conn.cursor()
-            c.execute("SELECT signup_password FROM user WHERE signup_username = ?", (username,))
-            user = c.fetchone()
-
-        if user:
-            if user[0] == password:
-                if account_type == 'Buyers':
-                    show_dashboard1(username, account_type)
-                elif account_type == 'Sellers':
-                    show_dashboard(username, account_type)
-                else:
-                    messagebox.showerror('Login Failed', 'Choose a valid account type')
-            else:
-                messagebox.showerror("Login Failed", "Invalid username or password")
-        else:
-            messagebox.showerror("Login Failed", "Invalid username or password")
-    except sqlite3.Error as e:
-        messagebox.showerror("Database Error", str(e))
-        
-
-
 # Conditions that are applied during Signup
 def signup():
     fname = signup_fname.get()
@@ -730,7 +700,33 @@ Label(left_frame, image=photo, bg='white').pack(expand=True)
 right_frame = Frame(main_content, bg='white')
 right_frame.pack(side=RIGHT, fill=BOTH, expand=True)
 
+# Conditions that are applied during login
+def login():
+    account_type = login_account_type.get()
+    username = login_name.get()
+    password = login_password.get()
 
+    try:
+        with sqlite3.connect('signup.db') as conn:
+            c = conn.cursor()
+            c.execute("SELECT signup_password FROM user WHERE signup_username = ?", (username,))
+            user = c.fetchone()
+
+        if user:
+            if user[0] == password:
+                if account_type == 'Buyers':
+                    show_dashboard1(username, account_type)
+                elif account_type == 'Sellers':
+                    show_dashboard(username, account_type)
+                else:
+                    messagebox.showerror('Login Failed', 'Choose a valid account type')
+            else:
+                messagebox.showerror("Login Failed", "Invalid username or password")
+        else:
+            messagebox.showerror("Login Failed", "Invalid username or password")
+    except sqlite3.Error as e:
+        messagebox.showerror("Database Error", str(e))
+        
 # LOGIN FRAME
 login_frame = Frame(right_frame, bg='white')
 Label(login_frame, text="Login", font=("Arial", 20), bg='white').pack(pady=10)
