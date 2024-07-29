@@ -231,9 +231,9 @@ def create_navigation_buttons(current_page, entries):
     save_button.place(x=530, y=330)
 
 # Products Pages button
-Button(root, text='1', command=first_page_products, border=1, bg='white').place(x=340, y=330)
-Button(root, text='2', command=second_page_products, border=1, bg='white').place(x=370, y=330)
-Button(root, text='3', command=third_page_products, border=1, bg='white').place(x=400, y=330)
+    Button(root, text='1', command=first_page_products, border=1, bg='white').place(x=340, y=330)
+    Button(root, text='2', command=second_page_products, border=1, bg='white').place(x=370, y=330)
+    Button(root, text='3', command=third_page_products, border=1, bg='white').place(x=400, y=330)
 
 # Functions for showing different sections of the SELLERS DASHBOARD
 def show_dashboard(username, account_type):
