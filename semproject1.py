@@ -806,6 +806,32 @@ Radiobutton(signup_frame, text="Buyers", variable=signup_account_type, value="Bu
 # BUTTON FOR SIGNUP
 Button(signup_frame, text="Sign Up", command=signup, bg='light grey').pack(pady=10)
 
+# Conditions that are applied during reset password
+def forgetpassword():
+    username = forget_fname.get()
+    password = forget_password.get()
+    confirm_password = forget_confirm_password.get()
+
+    if all([username, password, confirm_password]):
+        if len(password) >= 8 and password == confirm_password:
+            if password != username:
+                try:
+                    with sqlite3.connect('signup.db') as conn:
+                        c = conn.cursor()
+                        c.execute("UPDATE user SET signup_password = ? WHERE signup_username = ?", (password,username))
+                        conn.commit()
+                    messagebox.showinfo("Password Reset", f"Password reset successful for {username}")
+                    show_login()
+                except sqlite3.Error as e:
+                    messagebox.showerror("Database Error", str(e))
+            else:
+                messagebox.showerror("Password Reset Error", "Password should not match the username.")
+        else:
+            messagebox.showerror("Password Reset Error", "Passwords do not match or password is too short.")
+    else:
+        messagebox.showerror("Password Reset Error", "All fields must be filled.")
+        
+        
 # FORGET PASSWORD FRAME
 forgetpassword_frame = Frame(right_frame, bg='white')
 Label(forgetpassword_frame, text="Reset Password", font=("Arial", 20), bg='white').pack(pady=10)
