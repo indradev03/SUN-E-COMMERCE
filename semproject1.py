@@ -528,7 +528,12 @@ def show_dashboard1(username, account_type):
     def homepage():
         homepage_frame = Frame(root, width=450, height=325, bg='white')
         homepage_frame.place(x=152, y=41)
-        Label(homepage_frame, text='WELCOME', font=('Arial', 40)).place(x=40, y=40)
+        Label(homepage_frame, text='WEL-COME \n TO \n SUN \n E-SHOPPING', bg = 'white' ,font=('Arial', 20, 'bold')).place(x=230, y=85)
+        logo = Image.open('mediumlogo.jpg')
+        photo = ImageTk.PhotoImage(logo)
+        photolbl = Label(homepage_frame, image=photo, bg='white')
+        photolbl.image = photo  # Keep a reference to avoid garbage collection
+        photolbl.place(x=30, y=41)
 
     # Function to handle logout with conditions
     def logout():
