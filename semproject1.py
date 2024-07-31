@@ -74,6 +74,8 @@ def save_prices(page, entries):
 def delete_product(page, index): 
     prices[page].pop(index)
     product_images[page].pop(index)
+    if messagebox.askyesno("Delete", "Are you sure you want to Delete this product?"):
+        messagebox.showinfo("Delete", " Your products have been succesfully delete")
     update_product_display(page)
 
 # After Saving edit prices Or Delete products this code update the dashboard after changes
