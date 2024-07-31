@@ -195,10 +195,12 @@ def show_homepage():
     homepage_frame.place(x=152, y=41)
     Label(homepage_frame, text='WELCOME', font=('Arial', 40)).place(x=40, y=40)
 
-
-# LOGOUT
+    # Function to handle logout with conditions
 def logout():
-    root.destroy()
+        if messagebox.askyesno("Logout", "Are you sure you want to log out?"):
+            # Perform the logout operation
+            messagebox.showinfo("Logout", "You have been logged out.")
+            root.destroy()
     
 
 # Button that are displayed in Dashboard left frame
@@ -520,10 +522,12 @@ def show_dashboard1(username, account_type):
         homepage_frame.place(x=152, y=41)
         Label(homepage_frame, text='WELCOME', font=('Arial', 40)).place(x=40, y=40)
 
-
-    # LOGOUT
+    # Function to handle logout with conditions
     def logout():
-        root.destroy()
+        if messagebox.askyesno("Logout", "Are you sure you want to log out?"):
+            # Perform the logout operation
+            messagebox.showinfo("Logout", "You have been logged out.")
+            root.destroy()
 
 
     # THIS WILL SHOWS THE DETAILS OF THE USER IN THE DASHBOARD WHICH WAS  FILLED DURING SIGNUP TIME
