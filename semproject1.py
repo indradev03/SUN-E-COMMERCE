@@ -383,8 +383,8 @@ def show_dashboard1(username, account_type):
             
             conn.commit()
             conn.close()
-            
-            messagebox.showinfo("Purchase", f"You have purchased {product_name} for Rs.{price} using {payment_method}!")
+            if messagebox.askyesno("Purchase", "Are you sure you want to purchse this item?"):
+                messagebox.showinfo("Purchase", f"You have purchased {product_name} for Rs.{price} using {payment_method}!")
             
             popup.destroy()
 
