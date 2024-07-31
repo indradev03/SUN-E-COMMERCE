@@ -389,6 +389,8 @@ def show_dashboard1(username, account_type):
             popup.destroy()
 
         def on_cancel():
+            if messagebox.askyesno("Purchase cancell", "Are you sure you want to cancel process"):
+                messagebox.showinfo("Purchase cancell", f"Process cancelled")
             popup.destroy()
 
         # PAYMENT POPOUT
