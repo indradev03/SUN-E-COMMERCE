@@ -451,6 +451,7 @@ def show_dashboard1(username, account_type):
         history_window = Toplevel(root)
         history_window.title("Purchase History")
         history_window.geometry("600x300")
+        history_window.resizable(False, False)
 
         # Create a treeview to display the purchase history
         columns = ("id", "product_name", "price")
@@ -483,13 +484,14 @@ def show_dashboard1(username, account_type):
             cur = conn.cursor()
             
             for item in selected_items:
-                item_id = tree.item(item, "values")[0]
-                cur.execute('DELETE FROM purchases WHERE id=?', (item_id,))
-                tree.delete(item)
+                if messagebox.askyesno("Delete", "Are you sure you want to delete?"):
+                    item_id = tree.item(item, "values")[0]
+                    cur.execute('DELETE FROM purchases WHERE id=?', (item_id,))
+                    tree.delete(item)
             
-            conn.commit()
-            conn.close()
-            messagebox.showinfo("Delete", "Selected purchase history deleted successfully.")
+                conn.commit()
+                conn.close()
+                messagebox.showinfo("Delete", "Selected purchase history deleted successfully.")
 
         # Add a Delete button to the history window t0 delete the purchase history
         delete_btn = Button(history_window, text="Delete Selected", command=delete_purchase_history)
